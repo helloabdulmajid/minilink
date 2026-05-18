@@ -2,6 +2,7 @@ package com.abdulmajid.minilink.controller;
 
 import com.abdulmajid.minilink.dto.CreateShortUrlRequest;
 import com.abdulmajid.minilink.dto.ShortUrlResponse;
+import com.abdulmajid.minilink.dto.UrlAnalyticsResponse;
 import com.abdulmajid.minilink.service.ShortUrlService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,17 @@ public class ShortUrlController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(response);
+    }
+
+    @GetMapping("/{shortCode}/analytics")
+    public ResponseEntity<UrlAnalyticsResponse> getUrlAnalytics(
+            @PathVariable String shortCode
+    ) {
+
+        UrlAnalyticsResponse response =
+                shortUrlService.getUrlAnalytics(shortCode);
+
+        return ResponseEntity.ok(response);
     }
 
 }

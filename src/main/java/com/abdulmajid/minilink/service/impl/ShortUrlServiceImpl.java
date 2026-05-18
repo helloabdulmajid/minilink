@@ -2,6 +2,7 @@ package com.abdulmajid.minilink.service.impl;
 
 import com.abdulmajid.minilink.dto.CreateShortUrlRequest;
 import com.abdulmajid.minilink.dto.ShortUrlResponse;
+import com.abdulmajid.minilink.dto.UrlAnalyticsResponse;
 import com.abdulmajid.minilink.entity.ShortUrl;
 import com.abdulmajid.minilink.exception.DuplicateShortCodeException;
 import com.abdulmajid.minilink.exception.ShortUrlExpiredException;
@@ -92,5 +93,25 @@ public class ShortUrlServiceImpl implements ShortUrlService {
         shortUrlRepository.save(shortUrl);
 
         return shortUrl.getOriginalUrl();
+    }
+
+    @Override
+    public UrlAnalyticsResponse getUrlAnalytics(String shortCode) {
+
+        ShortUrl shortUrl = shortUrlRepository
+                .findByShortCode(shortCode)
+                .orElseThrow(() ->
+                        new ShortUrlNotFoundException(
+                                "Short URL not found"
+                        ));
+
+        return UrlAnalyticsResponse.builder()
+                .originalUrl(shortUrl.getOriginalUrl())
+                .shortCode(shortUrl.getShortCode())
+                .clickCount(shortUrl.getClickCount())
+                .createdAt(shortUrl.getCreatedAt())
+                .expiresAt(shortUrl.getExpiresAt())
+                .active(shortUrl.getActive())
+                .build();
     }
 }
