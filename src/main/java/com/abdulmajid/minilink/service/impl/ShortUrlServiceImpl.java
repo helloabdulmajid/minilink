@@ -3,12 +3,15 @@ package com.abdulmajid.minilink.service.impl;
 import com.abdulmajid.minilink.dto.CreateShortUrlRequest;
 import com.abdulmajid.minilink.dto.ShortUrlResponse;
 import com.abdulmajid.minilink.entity.ShortUrl;
+import com.abdulmajid.minilink.exception.ShortUrlExpiredException;
 import com.abdulmajid.minilink.exception.ShortUrlNotFoundException;
 import com.abdulmajid.minilink.repository.ShortUrlRepository;
 import com.abdulmajid.minilink.service.ShortUrlService;
 import com.abdulmajid.minilink.util.ShortCodeGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +28,7 @@ public class ShortUrlServiceImpl implements ShortUrlService {
                 .originalUrl(request.getOriginalUrl())
                 .shortCode(shortCode)
                 .customAlias(request.getCustomAlias())
+                .expiresAt(request.getExpiresAt())
                 .build();
 
         ShortUrl savedUrl = shortUrlRepository.save(shortUrl);
@@ -60,6 +64,12 @@ public class ShortUrlServiceImpl implements ShortUrlService {
                 .orElseThrow(() ->
                                 new ShortUrlNotFoundException("Short URL not found"));
         shortUrl.setClickCount(shortUrl.getClickCount() + 1);
+
+        if (shortUrl.getExpiresAt() != null &&
+                shortUrl.getExpiresAt().isBefore(LocalDateTime.now())) {
+
+            throw new ShortUrlExpiredException("Short URL has expired");
+        }
 
         shortUrlRepository.save(shortUrl);
 

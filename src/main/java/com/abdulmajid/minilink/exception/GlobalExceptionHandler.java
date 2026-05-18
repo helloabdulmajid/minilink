@@ -26,4 +26,20 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND)
                 .body(response);
     }
+
+    @ExceptionHandler(ShortUrlExpiredException.class)
+    public ResponseEntity<ApiErrorResponse> handleShortUrlExpiredException(
+            ShortUrlExpiredException ex
+    ) {
+
+        ApiErrorResponse response = ApiErrorResponse.builder()
+                .success(false)
+                .message(ex.getMessage())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity
+                .status(HttpStatus.GONE)
+                .body(response);
+    }
 }
