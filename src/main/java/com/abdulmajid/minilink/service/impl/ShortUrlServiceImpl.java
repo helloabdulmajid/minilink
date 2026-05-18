@@ -3,6 +3,7 @@ package com.abdulmajid.minilink.service.impl;
 import com.abdulmajid.minilink.dto.CreateShortUrlRequest;
 import com.abdulmajid.minilink.dto.ShortUrlResponse;
 import com.abdulmajid.minilink.entity.ShortUrl;
+import com.abdulmajid.minilink.exception.ShortUrlNotFoundException;
 import com.abdulmajid.minilink.repository.ShortUrlRepository;
 import com.abdulmajid.minilink.service.ShortUrlService;
 import com.abdulmajid.minilink.util.ShortCodeGenerator;
@@ -57,8 +58,7 @@ public class ShortUrlServiceImpl implements ShortUrlService {
         ShortUrl shortUrl = shortUrlRepository
                 .findByShortCode(shortCode)
                 .orElseThrow(() ->
-                        new RuntimeException("Short URL not found"));
-
+                                new ShortUrlNotFoundException("Short URL not found"));
         shortUrl.setClickCount(shortUrl.getClickCount() + 1);
 
         shortUrlRepository.save(shortUrl);
