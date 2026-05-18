@@ -3,6 +3,7 @@ package com.abdulmajid.minilink.service.impl;
 import com.abdulmajid.minilink.dto.CreateShortUrlRequest;
 import com.abdulmajid.minilink.dto.ShortUrlResponse;
 import com.abdulmajid.minilink.entity.ShortUrl;
+import com.abdulmajid.minilink.exception.DuplicateShortCodeException;
 import com.abdulmajid.minilink.exception.ShortUrlExpiredException;
 import com.abdulmajid.minilink.exception.ShortUrlNotFoundException;
 import com.abdulmajid.minilink.repository.ShortUrlRepository;
@@ -22,7 +23,24 @@ public class ShortUrlServiceImpl implements ShortUrlService {
     @Override
     public ShortUrlResponse createShortUrl(CreateShortUrlRequest request) {
 
-        String shortCode = generateUniqueShortCode();
+        String shortCode;
+
+        if (request.getCustomAlias() != null &&
+                !request.getCustomAlias().isBlank()) {
+
+            if (shortUrlRepository.existsByShortCode(
+                    request.getCustomAlias())) {
+
+                 throw new DuplicateShortCodeException(
+                        "Custom alias already exists");
+            }
+
+            shortCode = request.getCustomAlias().trim();
+
+        } else {
+
+            shortCode = generateUniqueShortCode();
+        }
 
         ShortUrl shortUrl = ShortUrl.builder()
                 .originalUrl(request.getOriginalUrl())

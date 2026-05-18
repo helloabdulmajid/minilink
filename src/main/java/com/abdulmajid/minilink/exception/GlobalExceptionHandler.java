@@ -42,4 +42,20 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.GONE)
                 .body(response);
     }
+
+    @ExceptionHandler(DuplicateShortCodeException.class)
+    public ResponseEntity<ApiErrorResponse> handleDuplicateShortCodeException(
+            DuplicateShortCodeException ex
+    ) {
+
+        ApiErrorResponse response = ApiErrorResponse.builder()
+                .success(false)
+                .message(ex.getMessage())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(response);
+    }
 }
