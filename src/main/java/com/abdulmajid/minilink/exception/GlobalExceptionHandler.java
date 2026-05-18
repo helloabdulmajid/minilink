@@ -3,6 +3,7 @@ package com.abdulmajid.minilink.exception;
 import com.abdulmajid.minilink.dto.ApiErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -56,6 +57,26 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
+                .body(response);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiErrorResponse> handleValidationException(
+            MethodArgumentNotValidException ex
+    ) {
+
+        String errorMessage = ex.getBindingResult()
+                .getFieldError()
+                .getDefaultMessage();
+
+        ApiErrorResponse response = ApiErrorResponse.builder()
+                .success(false)
+                .message(errorMessage)
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity
+                .badRequest()
                 .body(response);
     }
 }
