@@ -50,4 +50,19 @@ public class ShortUrlServiceImpl implements ShortUrlService {
 
         return shortCode;
     }
+
+    @Override
+    public String getOriginalUrl(String shortCode) {
+
+        ShortUrl shortUrl = shortUrlRepository
+                .findByShortCode(shortCode)
+                .orElseThrow(() ->
+                        new RuntimeException("Short URL not found"));
+
+        shortUrl.setClickCount(shortUrl.getClickCount() + 1);
+
+        shortUrlRepository.save(shortUrl);
+
+        return shortUrl.getOriginalUrl();
+    }
 }

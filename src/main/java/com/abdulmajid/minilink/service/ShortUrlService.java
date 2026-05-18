@@ -6,4 +6,5 @@ import com.abdulmajid.minilink.dto.ShortUrlResponse;
 public interface ShortUrlService {
 
     ShortUrlResponse createShortUrl(CreateShortUrlRequest request);
+    String getOriginalUrl(String shortCode);
 }
