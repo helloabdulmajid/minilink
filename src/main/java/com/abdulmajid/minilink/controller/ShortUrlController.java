@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 @RequestMapping("/api/v1/urls")
@@ -30,14 +29,4 @@ public class ShortUrlController {
                 .body(response);
     }
 
-    @GetMapping("/{shortCode}")
-    public RedirectView redirectToOriginalUrl(
-            @PathVariable String shortCode
-    ) {
-
-        String originalUrl =
-                shortUrlService.getOriginalUrl(shortCode);
-
-        return new RedirectView(originalUrl);
-    }
 }
