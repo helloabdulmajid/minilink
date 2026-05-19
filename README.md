@@ -1,23 +1,75 @@
-# MiniLink - Production Style URL Shortener API
+# MiniLink - Full Stack URL Shortener Platform 🚀
 
-MiniLink is a production-style URL Shortener backend application built using Spring Boot.
+MiniLink is a modern full-stack URL Shortener platform built using Spring Boot, PostgreSQL, React, and Tailwind CSS.
 
 The application allows users to:
 
-* Create shortened URLs
-* Generate custom aliases
-* Configure URL expiration
-* Redirect users to original URLs
-* Track click analytics
-* Handle API validation and exceptions professionally
+- Create shortened URLs
+- Generate custom aliases
+- Configure URL expiration
+- Redirect users to original URLs
+- Track click analytics
+- Manage recent links
+- View analytics dashboard
+- Use responsive modern UI
+- Deploy using cloud infrastructure
 
-This project was built to practice and demonstrate backend engineering concepts including REST API development, layered architecture, validation, exception handling, analytics tracking, and API documentation.
+This project was built to practice and demonstrate real-world backend and frontend engineering concepts including:
+
+- REST API development
+- Layered architecture
+- DTO usage
+- Validation handling
+- Exception handling
+- PostgreSQL cloud database integration
+- Frontend API integration
+- Responsive UI design
+- Production deployment preparation
+
+---
+
+# Current Project Status
+
+## Backend Status ✅
+
+Completed:
+
+- URL shortening API
+- Redirect handling
+- Analytics tracking
+- Custom alias support
+- URL expiration support
+- Validation & exception handling
+- Swagger/OpenAPI documentation
+- PostgreSQL migration
+- Cloud database integration using Aiven
+- Environment variable security setup
+
+---
+
+## Frontend Status ✅
+
+Completed:
+
+- React + Vite frontend
+- Tailwind CSS UI
+- Responsive mobile design
+- Home page
+- Analytics page
+- Navbar
+- Footer
+- Recent links section
+- Copy short URL feature
+- Clickable short URLs
+- Toast notifications
+- Loading animations
+- API integration with backend
 
 ---
 
 # Features
 
-## URL Shortening
+# URL Shortening
 
 Generate unique short URLs for long URLs.
 
@@ -31,7 +83,7 @@ http://localhost:8080/github
 
 ---
 
-## Custom Alias Support
+# Custom Alias Support
 
 Users can create custom aliases instead of random short codes.
 
@@ -52,7 +104,7 @@ http://localhost:8080/github
 
 ---
 
-## URL Expiration
+# URL Expiration
 
 Supports optional URL expiration.
 
@@ -69,9 +121,9 @@ Example:
 
 ---
 
-## Redirect Handling
+# Redirect Handling
 
-Short URLs redirect users to original URLs using Spring Boot redirect handling.
+Short URLs redirect users to original URLs.
 
 Example:
 
@@ -82,7 +134,7 @@ GET /github
 
 ---
 
-## Click Tracking & Analytics
+# Click Tracking & Analytics
 
 Tracks total redirect clicks for each URL.
 
@@ -92,7 +144,7 @@ Analytics endpoint:
 GET /api/v1/urls/{shortCode}/analytics
 ```
 
-Response Example:
+Example response:
 
 ```json
 {
@@ -107,69 +159,71 @@ Response Example:
 
 ---
 
-## Validation & Error Handling
+# Responsive Frontend UI
 
-Includes:
+The frontend supports:
 
-* URL format validation
-* Duplicate alias validation
-* Expired URL validation
-* Global exception handling
-* Clean API responses
-
----
-
-## Swagger/OpenAPI Documentation
-
-Integrated Swagger UI for interactive API testing and documentation.
-
-Swagger URL:
-
-```txt
-http://localhost:8080/swagger-ui/index.html
-```
+- Mobile responsive layout
+- Modern dark UI
+- Gradient buttons
+- Analytics dashboard
+- Interactive navigation
+- Footer section
+- Smooth hover effects
 
 ---
 
 # Tech Stack
 
-## Backend
+# Backend
 
-* Java 17
-* Spring Boot
-* Spring Web
-* Spring Data JPA
-* Hibernate
-* Maven
-
-## Database
-
-* MySQL
-
-## Tools & Libraries
-
-* Lombok
-* Swagger/OpenAPI
-* Postman
-* Git & GitHub
+- Java 21
+- Spring Boot
+- Spring Web
+- Spring Data JPA
+- Hibernate
+- Maven
 
 ---
 
-# Project Architecture
+# Frontend
 
-The project follows a layered architecture pattern.
+- React
+- Vite
+- Tailwind CSS
+- Axios
+- React Router
+- React Hot Toast
+
+---
+
+# Database
+
+- PostgreSQL
+- Aiven Cloud Database
+
+---
+
+# Tools & Libraries
+
+- Lombok
+- Swagger/OpenAPI
+- Git & GitHub
+- Postman
+- IntelliJ IDEA
+- VS Code
+
+---
+
+# Architecture
+
+The project follows layered backend architecture.
 
 ```txt
 Controller → Service → Repository → Database
 ```
 
-## Architecture Benefits
-
-* Clean code structure
-* Better maintainability
-* Separation of concerns
-* Easier testing and debugging
-* Scalable backend design
+Frontend communicates with backend APIs using Axios.
 
 ---
 
@@ -211,18 +265,6 @@ POST /api/v1/urls
 }
 ```
 
-## Response
-
-```json
-{
-  "originalUrl": "https://github.com",
-  "shortCode": "github",
-  "shortUrl": "http://localhost:8080/github",
-  "clickCount": 0,
-  "createdAt": "2026-05-19T02:30:00"
-}
-```
-
 ---
 
 # 2. Redirect URL
@@ -231,18 +273,6 @@ POST /api/v1/urls
 
 ```txt
 GET /{shortCode}
-```
-
-## Example
-
-```txt
-GET /github
-```
-
-Redirects to:
-
-```txt
-https://github.com
 ```
 
 ---
@@ -255,57 +285,37 @@ https://github.com
 GET /api/v1/urls/{shortCode}/analytics
 ```
 
-## Example
-
-```txt
-GET /api/v1/urls/github/analytics
-```
-
-## Response
-
-```json
-{
-  "originalUrl": "https://github.com",
-  "shortCode": "github",
-  "clickCount": 25,
-  "createdAt": "2026-05-19T02:30:00",
-  "expiresAt": null,
-  "active": true
-}
-```
-
 ---
 
 # Validation Rules
 
-## Original URL
+# Original URL
 
-* Required
-* Must start with:
-
-    * http://
-    * https://
-
----
-
-## Custom Alias
-
-* Optional
-* Must be unique
-* Duplicate aliases are blocked
+- Required
+- Must start with:
+    - http://
+    - https://
 
 ---
 
-## Expiration Date
+# Custom Alias
 
-* Optional
-* Expired URLs automatically become inaccessible
+- Optional
+- Must be unique
+- Duplicate aliases are blocked
+
+---
+
+# Expiration Date
+
+- Optional
+- Expired URLs automatically become inaccessible
 
 ---
 
 # Exception Handling
 
-The project uses global exception handling using:
+Global exception handling implemented using:
 
 ```txt
 @RestControllerAdvice
@@ -313,44 +323,71 @@ The project uses global exception handling using:
 
 Custom exceptions:
 
-* ShortUrlNotFoundException
-* ShortUrlExpiredException
-* DuplicateShortCodeException
+- ShortUrlNotFoundException
+- ShortUrlExpiredException
+- DuplicateShortCodeException
 
 ---
 
-# HTTP Status Codes Used
+# HTTP Status Codes
 
-| Status Code     | Meaning                        |
-| --------------- | ------------------------------ |
-| 201 Created     | Short URL created successfully |
-| 302 Found       | Redirect successful            |
-| 400 Bad Request | Validation error               |
-| 404 Not Found   | Short URL not found            |
-| 409 Conflict    | Duplicate alias                |
-| 410 Gone        | URL expired                    |
+| Status Code | Meaning |
+|---|---|
+| 201 Created | Short URL created |
+| 302 Found | Redirect successful |
+| 400 Bad Request | Validation error |
+| 404 Not Found | Short URL not found |
+| 409 Conflict | Duplicate alias |
+| 410 Gone | URL expired |
 
 ---
 
 # Database Design
 
-## Table: short_url
+# Table: short_url
 
-| Column       | Description                 |
-| ------------ | --------------------------- |
-| id           | Primary Key                 |
-| original_url | Original long URL           |
-| short_code   | Generated/custom short code |
-| click_count  | Total redirect clicks       |
-| created_at   | URL creation timestamp      |
-| expires_at   | Expiration timestamp        |
-| active       | Active status               |
+| Column | Description |
+|---|---|
+| id | Primary Key |
+| original_url | Original long URL |
+| short_code | Generated/custom short code |
+| click_count | Total redirect clicks |
+| created_at | URL creation timestamp |
+| expires_at | Expiration timestamp |
+| active | Active status |
 
 ---
 
-# How To Run The Project
+# PostgreSQL Cloud Migration ✅
 
-## 1. Clone Repository
+The project was migrated from MySQL to PostgreSQL using Aiven Cloud Database.
+
+Benefits:
+
+- Cloud hosted database
+- Better deployment readiness
+- Production-style setup
+- Secure environment variable support
+
+---
+
+# Environment Variables
+
+Sensitive credentials are stored using environment variables.
+
+Example:
+
+```env
+DB_URL=your_database_url
+DB_USERNAME=your_database_username
+DB_PASSWORD=your_database_password
+```
+
+---
+
+# How To Run Backend
+
+## Clone Repository
 
 ```bash
 git clone https://github.com/helloabdulmajid/minilink.git
@@ -358,31 +395,25 @@ git clone https://github.com/helloabdulmajid/minilink.git
 
 ---
 
-## 2. Open Project
+## Open Project
 
-Open in IntelliJ IDEA or preferred IDE.
+Open using IntelliJ IDEA.
 
 ---
 
-## 3. Configure MySQL
-
-Update:
-
-```txt
-src/main/resources/application.properties
-```
+## Configure Environment Variables
 
 Example:
 
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/minilink
-spring.datasource.username=root
-spring.datasource.password=yourpassword
+```env
+DB_URL=jdbc:postgresql://localhost:5432/minilink
+DB_USERNAME=postgres
+DB_PASSWORD=password
 ```
 
 ---
 
-## 4. Run Application
+## Run Application
 
 Run:
 
@@ -390,20 +421,57 @@ Run:
 MinilinkApplication.java
 ```
 
+Backend runs on:
+
+```txt
+http://localhost:8080
+```
+
 ---
 
-# Future Improvements
+# How To Run Frontend
 
-Planned future enhancements:
+## Open Frontend Folder
 
-* React Frontend
-* Docker Support
-* Redis Caching
-* JWT Authentication
-* User Accounts
-* QR Code Generation
-* URL Analytics Dashboard
-* Public Deployment
+```bash
+cd minilink-web
+```
+
+---
+
+## Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+## Run Frontend
+
+```bash
+npm run dev
+```
+
+Frontend runs on:
+
+```txt
+http://localhost:5173
+```
+
+---
+
+# Planned Future Improvements
+
+- JWT Authentication
+- User Accounts
+- QR Code Generation
+- Redis Caching
+- Docker Support
+- Public Deployment
+- Rate Limiting
+- Admin Dashboard
+- Advanced Analytics
 
 ---
 
@@ -411,16 +479,18 @@ Planned future enhancements:
 
 This project helped in understanding:
 
-* REST API development
-* Layered backend architecture
-* DTO usage
-* Validation handling
-* Exception handling
-* Swagger/OpenAPI
-* Redirect handling
-* JPA & Hibernate
-* API testing using Postman
-* Git & GitHub workflow
+- REST API development
+- Full stack integration
+- React frontend development
+- Tailwind responsive UI
+- PostgreSQL cloud integration
+- Environment variable security
+- Exception handling
+- DTO usage
+- JPA & Hibernate
+- API testing
+- Git workflow
+- Deployment preparation
 
 ---
 
@@ -432,13 +502,16 @@ Java Backend Developer
 
 GitHub:
 
-[https://github.com/helloabdulmajid](https://github.com/helloabdulmajid)
+https://github.com/helloabdulmajid
 
 ---
 
 # Project Status
 
-Backend Phase Completed Successfully ✅
+## Backend Completed ✅
 
-Next Phase:
-Frontend Development using React + Tailwind CSS 🚀
+## Frontend Completed ✅
+
+## PostgreSQL Migration Completed ✅
+
+## Deployment Phase In Progress 🚀
