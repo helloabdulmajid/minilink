@@ -15,6 +15,7 @@ public class UrlAnalyticsResponse {
 
     private Long clickCount;
 
+
     private LocalDateTime createdAt;
 
     private LocalDateTime expiresAt;
