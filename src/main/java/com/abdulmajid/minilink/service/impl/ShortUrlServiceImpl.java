@@ -55,7 +55,7 @@ public class ShortUrlServiceImpl implements ShortUrlService {
         return ShortUrlResponse.builder()
                 .originalUrl(savedUrl.getOriginalUrl())
                 .shortCode(savedUrl.getShortCode())
-                .shortUrl("http://localhost:8080/" + savedUrl.getShortCode())
+                .shortUrl("https://minilink-twtn.onrender.com" + savedUrl.getShortCode())
                 .customAlias(savedUrl.getCustomAlias())
                 .clickCount(savedUrl.getClickCount())
                 .createdAt(savedUrl.getCreatedAt())
